@@ -1,0 +1,6 @@
+Input:
+S = ADOBECODEBANC
+T = ABC
+
+Output:
+BANC
