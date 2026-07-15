@@ -1,0 +1,11 @@
+Implement:
+
+get()
+put()
+
+Both in O(1).
+
+Concept:
+
+HashMap
+Doubly Linked List
