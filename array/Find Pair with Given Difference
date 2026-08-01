@@ -1,0 +1,28 @@
+import java.util.*;
+
+class Solution{
+    public static void main(String args[]){
+
+        int arr[]={1,8,30,40,100};
+        int diff=60;
+
+        Arrays.sort(arr);
+
+        int i=0,j=1;
+
+        while(j<arr.length){
+
+            int d=arr[j]-arr[i];
+
+            if(d==diff){
+                System.out.println(arr[i]+" "+arr[j]);
+                return;
+            }
+
+            if(d<diff)
+                j++;
+            else
+                i++;
+        }
+    }
+}
