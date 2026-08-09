@@ -1,0 +1,30 @@
+class Stack {
+    int[] arr;
+    int top = -1;
+
+    Stack(int size) {
+        arr = new int[size];
+    }
+
+    void push(int x) {
+        if (top == arr.length - 1) {
+            System.out.println("Overflow");
+        } else {
+            arr[++top] = x;
+        }
+    }
+
+    int pop() {
+        if (top == -1) {
+            return -1;
+        }
+        return arr[top--];
+    }
+
+    int peek() {
+        if (top == -1) {
+            return -1;
+        }
+        return arr[top];
+    }
+}
