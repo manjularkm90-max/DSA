@@ -1,0 +1,23 @@
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        String[] arr = {"3", "30", "34", "5", "9"};
+
+        Arrays.sort(arr, (a, b) ->
+            (b + a).compareTo(a + b)
+        );
+
+        StringBuilder ans = new StringBuilder();
+
+        for (String s : arr)
+            ans.append(s);
+
+        if (ans.charAt(0) == '0')
+            System.out.println("0");
+        else
+            System.out.println(ans);
+    }
+}
