@@ -1,0 +1,46 @@
+class CircularQueue {
+    vector<int> arr;
+    int frontIdx, rearIdx, size, capacity;
+
+public:
+    CircularQueue(int k) {
+        capacity = k;
+        arr.resize(k);
+        frontIdx = 0;
+        rearIdx = -1;
+        size = 0;
+    }
+
+    bool isEmpty() {
+        return size == 0;
+    }
+
+    bool isFull() {
+        return size == capacity;
+    }
+
+    void enqueue(int x) {
+        if (isFull()) return;
+
+        rearIdx = (rearIdx + 1) % capacity;
+        arr[rearIdx] = x;
+        size++;
+    }
+
+    void dequeue() {
+        if (isEmpty()) return;
+
+        frontIdx = (frontIdx + 1) % capacity;
+        size--;
+    }
+
+    int front() {
+        if (isEmpty()) return -1;
+        return arr[frontIdx];
+    }
+
+    int rear() {
+        if (isEmpty()) return -1;
+        return arr[rearIdx];
+    }
+};
