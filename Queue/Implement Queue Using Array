@@ -1,0 +1,41 @@
+class QueueArray {
+    int[] arr;
+    int front = 0;
+    int rear = -1;
+    int size = 0;
+
+    QueueArray(int capacity) {
+        arr = new int[capacity];
+    }
+
+    void enqueue(int x) {
+        if (size == arr.length) {
+            System.out.println("Queue Full");
+            return;
+        }
+
+        rear = (rear + 1) % arr.length;
+        arr[rear] = x;
+        size++;
+    }
+
+    int dequeue() {
+        if (size == 0) {
+            throw new RuntimeException("Queue Empty");
+        }
+
+        int value = arr[front];
+        front = (front + 1) % arr.length;
+        size--;
+
+        return value;
+    }
+
+    int peek() {
+        if (size == 0) {
+            throw new RuntimeException("Queue Empty");
+        }
+
+        return arr[front];
+    }
+}
