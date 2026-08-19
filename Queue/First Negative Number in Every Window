@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> firstNegative(vector<int>& arr, int k) {
+    queue<int> q;
+    vector<int> ans;
+
+    for (int i = 0; i < arr.size(); i++) {
+
+        if (arr[i] < 0)
+            q.push(i);
+
+        // Remove indices outside window
+        while (!q.empty() && q.front() <= i - k)
+            q.pop();
+
+        if (i >= k - 1) {
+            if (q.empty())
+                ans.push_back(0);
+            else
+                ans.push_back(arr[q.front()]);
+        }
+    }
+
+    return ans;
+}
+
+int main() {
+    vector<int> arr = {12,-1,-7,8,-15,30,16,28};
+    int k = 3;
+
+    vector<int> ans = firstNegative(arr, k);
+
+    for (int x : ans)
+        cout << x << " ";
+
+    return 0;
+}
