@@ -1,0 +1,37 @@
+import java.util.*;
+
+class Solution {
+
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+
+        TreeMap<Integer, List<Integer>> map =
+            new TreeMap<>();
+
+        Queue<TreeNode> nodes = new LinkedList<>();
+        Queue<Integer> columns = new LinkedList<>();
+
+        nodes.add(root);
+        columns.add(0);
+
+        while (!nodes.isEmpty()) {
+
+            TreeNode node = nodes.poll();
+            int col = columns.poll();
+
+            map.putIfAbsent(col, new ArrayList<>());
+            map.get(col).add(node.val);
+
+            if (node.left != null) {
+                nodes.add(node.left);
+                columns.add(col - 1);
+            }
+
+            if (node.right != null) {
+                nodes.add(node.right);
+                columns.add(col + 1);
+            }
+        }
+
+        return new ArrayList<>(map.values());
+    }
+}
