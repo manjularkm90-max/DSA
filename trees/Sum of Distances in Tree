@@ -1,0 +1,64 @@
+import java.util.*;
+
+class Solution {
+
+    int[] count;
+    int[] answer;
+    List<List<Integer>> graph;
+
+    public int[] sumOfDistancesInTree(
+            int n, int[][] edges) {
+
+        count = new int[n];
+        answer = new int[n];
+
+        graph = new ArrayList<>();
+
+        for (int i = 0; i < n; i++)
+            graph.add(new ArrayList<>());
+
+        for (int[] edge : edges) {
+
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]);
+        }
+
+        Arrays.fill(count, 1);
+
+        dfs1(0, -1);
+        dfs2(0, -1);
+
+        return answer;
+    }
+
+    private void dfs1(int node, int parent) {
+
+        for (int next : graph.get(node)) {
+
+            if (next == parent)
+                continue;
+
+            dfs1(next, node);
+
+            count[node] += count[next];
+
+            answer[node] +=
+                answer[next] + count[next];
+        }
+    }
+
+    private void dfs2(int node, int parent) {
+
+        for (int next : graph.get(node)) {
+
+            if (next == parent)
+                continue;
+
+            answer[next] =
+                answer[node] - count[next]
+                + (count.length - count[next]);
+
+            dfs2(next, node);
+        }
+    }
+}
