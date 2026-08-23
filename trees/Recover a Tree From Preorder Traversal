@@ -1,0 +1,46 @@
+class Solution {
+
+    int index = 0;
+
+    public TreeNode recoverFromPreorder(String traversal) {
+
+        return build(traversal, 0);
+    }
+
+    private TreeNode build(
+            String s,
+            int depth) {
+
+        int count = 0;
+
+        while (index < s.length() &&
+               s.charAt(index) == '-') {
+
+            count++;
+            index++;
+        }
+
+        if (count != depth) {
+            index -= count;
+            return null;
+        }
+
+        int value = 0;
+
+        while (index < s.length() &&
+               Character.isDigit(s.charAt(index))) {
+
+            value = value * 10 +
+                    (s.charAt(index) - '0');
+
+            index++;
+        }
+
+        TreeNode root = new TreeNode(value);
+
+        root.left = build(s, depth + 1);
+        root.right = build(s, depth + 1);
+
+        return root;
+    }
+}
