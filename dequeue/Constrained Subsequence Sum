@@ -1,0 +1,42 @@
+import java.util.*;
+
+class Solution {
+    public int constrainedSubsetSum(int[] nums, int k) {
+
+        int n = nums.length;
+
+        int[] dp = new int[n];
+
+        Deque<Integer> dq = new ArrayDeque<>();
+
+        int answer = Integer.MIN_VALUE;
+
+        for (int i = 0; i < n; i++) {
+
+            // Remove indexes outside range
+            while (!dq.isEmpty() &&
+                   dq.peekFirst() < i - k) {
+                dq.pollFirst();
+            }
+
+            if (dq.isEmpty()) {
+                dp[i] = nums[i];
+            } else {
+                dp[i] = nums[i] +
+                        Math.max(0, dp[dq.peekFirst()]);
+            }
+
+            // Maintain decreasing dp values
+            while (!dq.isEmpty() &&
+                   dp[dq.peekLast()] <= dp[i]) {
+                dq.pollLast();
+            }
+
+            dq.offerLast(i);
+
+            answer = Math.max(answer, dp[i]);
+        }
+
+        return answer;
+    }
+}
