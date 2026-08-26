@@ -1,0 +1,64 @@
+import java.util.*;
+
+class Solution {
+    public int[] maxOfMin(int[] nums) {
+
+        int n = nums.length;
+
+        int[] left = new int[n];
+        int[] right = new int[n];
+
+        Arrays.fill(left, -1);
+        Arrays.fill(right, n);
+
+        Deque<Integer> dq = new ArrayDeque<>();
+
+        // Previous smaller
+        for (int i = 0; i < n; i++) {
+
+            while (!dq.isEmpty() &&
+                   nums[dq.peekLast()] >= nums[i]) {
+                dq.pollLast();
+            }
+
+            if (!dq.isEmpty()) {
+                left[i] = dq.peekLast();
+            }
+
+            dq.offerLast(i);
+        }
+
+        dq.clear();
+
+        // Next smaller
+        for (int i = n - 1; i >= 0; i--) {
+
+            while (!dq.isEmpty() &&
+                   nums[dq.peekLast()] >= nums[i]) {
+                dq.pollLast();
+            }
+
+            if (!dq.isEmpty()) {
+                right[i] = dq.peekLast();
+            }
+
+            dq.offerLast(i);
+        }
+
+        int[] ans = new int[n];
+
+        for (int i = 0; i < n; i++) {
+
+            int length = right[i] - left[i] - 1;
+
+            ans[length - 1] =
+                Math.max(ans[length - 1], nums[i]);
+        }
+
+        for (int i = n - 2; i >= 0; i--) {
+            ans[i] = Math.max(ans[i], ans[i + 1]);
+        }
+
+        return ans;
+    }
+}
