@@ -1,0 +1,4 @@
+while (!dq.isEmpty() &&
+       nums[dq.peekLast()] <= nums[i]) {
+    dq.pollLast();
+}
