@@ -1,0 +1,52 @@
+import java.util.*;
+
+public class PalindromePartition {
+
+    static void partition(String s,
+                          int start,
+                          List<String> current) {
+
+        if (start == s.length()) {
+
+            System.out.println(current);
+            return;
+        }
+
+        for (int end = start;
+             end < s.length();
+             end++) {
+
+            if (isPalindrome(s, start, end)) {
+
+                current.add(
+                    s.substring(start, end + 1)
+                );
+
+                partition(s, end + 1, current);
+
+                current.remove(current.size() - 1);
+            }
+        }
+    }
+
+    static boolean isPalindrome(String s,
+                                int left,
+                                int right) {
+
+        while (left < right) {
+
+            if (s.charAt(left) != s.charAt(right))
+                return false;
+
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+
+    public static void main(String[] args) {
+
+        partition("aab", 0, new ArrayList<>());
+    }
+}
