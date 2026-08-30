@@ -1,0 +1,66 @@
+public class Hamiltonian {
+
+    static boolean solve(int[][] graph) {
+
+        int n = graph.length;
+
+        int[] path = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            path[i] = -1;
+        }
+
+        path[0] = 0;
+
+        return backtrack(graph, path, 1);
+    }
+
+    static boolean backtrack(
+            int[][] graph,
+            int[] path,
+            int position) {
+
+        int n = graph.length;
+
+        if (position == n) {
+
+            return graph[path[position - 1]][path[0]] == 1;
+        }
+
+        for (int vertex = 1; vertex < n; vertex++) {
+
+            if (isSafe(graph, path, vertex, position)) {
+
+                path[position] = vertex;
+
+                if (backtrack(graph, path, position + 1)) {
+                    return true;
+                }
+
+                path[position] = -1;
+            }
+        }
+
+        return false;
+    }
+
+    static boolean isSafe(
+            int[][] graph,
+            int[] path,
+            int vertex,
+            int position) {
+
+        if (graph[path[position - 1]][vertex] == 0) {
+            return false;
+        }
+
+        for (int i = 0; i < position; i++) {
+
+            if (path[i] == vertex) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
