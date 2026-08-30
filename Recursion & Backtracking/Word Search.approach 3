@@ -1,0 +1,18 @@
+Given:
+
+A B C E
+S F C S
+A D E E
+
+Search:
+
+ABCCED
+
+You move:
+
+↑
+↓
+←
+→
+
+without using the same cell twice.
