@@ -1,0 +1,33 @@
+import java.util.*;
+
+class Solution {
+    public int longest012(int[] nums) {
+
+        HashMap<String, Integer> map = new HashMap<>();
+
+        int c0 = 0, c1 = 0, c2 = 0;
+        int max = 0;
+
+        map.put("0#0", -1);
+
+        for (int i = 0; i < nums.length; i++) {
+
+            if (nums[i] == 0) c0++;
+            else if (nums[i] == 1) c1++;
+            else c2++;
+
+            int d01 = c0 - c1;
+            int d12 = c1 - c2;
+
+            String key = d01 + "#" + d12;
+
+            if (map.containsKey(key)) {
+                max = Math.max(max, i - map.get(key));
+            } else {
+                map.put(key, i);
+            }
+        }
+
+        return max;
+    }
+}
